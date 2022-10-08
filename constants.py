@@ -1,0 +1,6 @@
+OPERATOR = 'operator'
+VARIABLE = 'variable'
+VALUE = 'value'
+NODE = 'node'
+CONDITION = 'condition'
+CHILDREN = 'children'
