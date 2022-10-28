@@ -1,4 +1,5 @@
-{
+[
+  {
   "value": "veicolo-leggero",
   "variable": "category",
   "operator": "=~",
@@ -116,4 +117,124 @@
       ]
     }
   ]
+},
+{
+  "value": "veicolo-medio",
+  "variable": "category",
+  "operator": "=~",
+  "children": [
+    {
+      "value": "25",
+      "variable": "km",
+      "operator": ">",
+      "children": [
+        {
+          "eboo": "ciao"
+        }
+      ]
+    },
+    {
+      "value": "25",
+      "variable": "km",
+      "operator": "<=",
+      "children": [
+        {
+          "value": [0, 5],
+          "variable": "day",
+          "operator": "beetween",
+          "children": [
+            {
+              "category": "veicolo-leggero",
+              "prezzo": "0",
+              "prezzo1": "0",
+              "prezzo2": "600",
+              "prezzo3": "10.00€",
+              "prezzo4": "1.60 €",
+              "prezzo5": "1.00 €",
+              "prezzo6": "0.80 €",
+              "prezzo7": "25",
+              "prezzo8": "100"
+            }
+          ]
+        },
+        {
+          "value": [0, 3],
+          "variable": "day",
+          "operator": "beetween",
+          "children": [
+            {
+              "category": "veicolo-leggero",
+              "prezzo": "1",
+              "prezzo1": "0",
+              "prezzo2": "600",
+              "prezzo3": "10.00€",
+              "prezzo4": "1.60 €",
+              "prezzo5": "1.00 €",
+              "prezzo6": "0.80 €",
+              "prezzo7": "25",
+              "prezzo8": "100"
+            }
+          ]
+        },
+        {
+          "value": 4,
+          "variable": "day",
+          "operator": "==",
+          "children": [
+            {
+              "category": "veicolo-leggero",
+              "prezzo": "2",
+              "prezzo1": "0",
+              "prezzo2": "600",
+              "prezzo3": "10.00€",
+              "prezzo4": "1.60 €",
+              "prezzo5": "1.00 €",
+              "prezzo6": "0.80 €",
+              "prezzo7": "25",
+              "prezzo8": "100"
+            }
+          ]
+        },
+        {
+          "value": 5,
+          "variable": "day",
+          "operator": "==",
+          "children": [
+            {
+              "category": "veicolo-leggero",
+              "prezzo": "3",
+              "prezzo1": "0",
+              "prezzo2": "600",
+              "prezzo3": "10.00€",
+              "prezzo4": "1.60 €",
+              "prezzo5": "1.00 €",
+              "prezzo6": "0.80 €",
+              "prezzo7": "25",
+              "prezzo8": "100"
+            }
+          ]
+        },
+        {
+          "value": 6,
+          "variable": "day",
+          "operator": "==",
+          "children": [
+            {
+              "category": "veicolo-leggero",
+              "prezzo": "4",
+              "prezzo1": "0",
+              "prezzo2": "600",
+              "prezzo3": "10.00€",
+              "prezzo4": "1.60 €",
+              "prezzo5": "1.00 €",
+              "prezzo6": "0.80 €",
+              "prezzo7": "25",
+              "prezzo8": "100"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
+]

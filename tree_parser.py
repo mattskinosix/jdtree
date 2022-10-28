@@ -1,4 +1,5 @@
 from io import UnsupportedOperation
+from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 from condition import Operator
@@ -16,7 +17,13 @@ class TreeParser():
         self.operation = Operator()
 
     def decide(self, attribute_to_match):
-        return self.__decide_next_node_BSC(attribute_to_match, self.tree)
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            for tree in self.tree:
+                return executor.submit(
+                    self.__decide_next_node_BSC,
+                    attribute_to_match,
+                    tree
+                ).result()
 
     def __decide_next_node_BSC(self, attribute_to_match, nodes: dict):
         '''
@@ -33,7 +40,10 @@ class TreeParser():
                 self.decision.append(node)
                 break
             if self.__compute_condition(node, attribute_to_match):
-                self.__decide_next_node_BSC(attribute_to_match, node)
+                self.__decide_next_node_BSC(
+                    attribute_to_match,
+                    node
+                )
         return self.decision
 
     def __compute_condition(self, node: dict, attribute_to_match: dict) -> bool:
