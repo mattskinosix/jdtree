@@ -4,11 +4,12 @@ setup(
     name='jdtree',
     packages=['jdtree'],
     version='0.0.1',
-    description='Json Decision Tree',
+    description='Json Decision Table/Tree',
     author='Matteo Greco',
     license='MIT',
     install_requires=[],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     test_suite='tests',
+    long_description='Json Decision Table/Tree',
 )
