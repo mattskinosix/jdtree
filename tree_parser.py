@@ -16,16 +16,29 @@ class TreeParser():
         self.tree = json.load(f)
         self.operation = Operator()
 
-    def decide(self, attribute_to_match):
+    def decide(self, attributes_to_match):
         with ThreadPoolExecutor(max_workers=10) as executor:
-            for tree in self.tree:
-                return executor.submit(
+            futures = []
+            for tree in self.tree['leafs']:
+                futures.append(executor.submit(
                     self.__decide_next_node_BSC,
-                    attribute_to_match,
-                    tree
-                ).result()
+                    attributes_to_match,
+                    tree,
+                    self.tree['variable']
+                ))
+            results = []
+            for future in futures:
+                result = future.result()
+                if len(result):
+                    results.append(result.pop(0))
+            return results
 
-    def __decide_next_node_BSC(self, attribute_to_match, nodes: dict):
+    def __decide_next_node_BSC(
+            self,
+            attributes_to_match,
+            node: dict,
+            variable: str
+    ):
         '''
         Start BSC recursion in the tree.
 
@@ -35,18 +48,27 @@ class TreeParser():
                 Returns:
                         decision (list): list of decisions meet in tree
         '''
-        for node in nodes['children']:
-            if 'children' not in node.keys():
-                self.decision.append(node)
-                break
-            if self.__compute_condition(node, attribute_to_match):
+        if 'result' in node.keys():
+            self.decision.append(node)
+        elif self.__compute_condition(
+                node,
+                attributes_to_match,
+                variable
+            ):
+            for inner_node in node['leafs']:
                 self.__decide_next_node_BSC(
-                    attribute_to_match,
-                    node
+                    attributes_to_match,
+                    inner_node,
+                    node.get(VARIABLE, '')
                 )
         return self.decision
 
-    def __compute_condition(self, node: dict, attribute_to_match: dict) -> bool:
+    def __compute_condition(
+            self,
+            node: dict,
+            attribute_to_match: dict,
+            variable_name: str
+    ) -> bool:
         '''
         Returns evals of the condition in the three.
 
@@ -58,15 +80,15 @@ class TreeParser():
                         by value in object
         '''
         operator = node[OPERATOR]
-        variable_name = node[VARIABLE]
         variable_value = node[VALUE]
         target_value = attribute_to_match[variable_name]
         try:
             operation = getattr(self.operation, operator)
             return operation(target_value, variable_value)
         except AttributeError:
-            logging.exception('error')
+            pass
         try:
+            print(f"{target_value} {operator} {variable_value}")
             return eval(f"{target_value} {operator} {variable_value}")
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
