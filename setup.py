@@ -1,7 +1,8 @@
-from setuptools import find_packages, setup
+from setuptools import setup
+
 setup(
     name='jdtree',
-    packages=find_packages(include=['jdtree']),
+    packages=['jdtree'],
     version='0.0.1',
     description='Json Decision Tree',
     author='Matteo Greco',
