@@ -2,11 +2,11 @@ from io import UnsupportedOperation
 from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
-from condition import Operator
-from constants import OPERATOR, VALUE, VARIABLE
+from .condition import Operator
+from .constants import OPERATOR, VALUE, VARIABLE
 
 
-class TreeParser():
+class JDTEngine():
     decision = []
 
     """Docstring for TreeParser. """
@@ -54,7 +54,7 @@ class TreeParser():
                 node,
                 attributes_to_match,
                 variable
-            ):
+        ):
             for inner_node in node['leafs']:
                 self.__decide_next_node_BSC(
                     attributes_to_match,
