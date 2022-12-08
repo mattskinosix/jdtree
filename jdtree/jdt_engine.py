@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 from .condition import Operator
-from .constants import OPERATOR, VALUE, VARIABLE
+from .constants import OPERATOR, VALUE, VARIABLE, VARIABLE_TYPE
 
 
 class JDTEngine():
@@ -13,7 +13,7 @@ class JDTEngine():
 
     def __init__(self, file_path: str = "test.json"):
         f = open(file_path)
-        self.tree = json.load(f)
+        self.tree = json.load(f)['root']
         self.operation = Operator()
 
     def decide(self, attributes_to_match):
@@ -24,7 +24,8 @@ class JDTEngine():
                     self.__decide_next_node_BSC,
                     attributes_to_match,
                     tree,
-                    self.tree['variable']
+                    self.tree[VARIABLE],
+                    self.tree[VARIABLE_TYPE]
                 ))
             results = []
             for future in futures:
@@ -37,7 +38,8 @@ class JDTEngine():
             self,
             attributes_to_match,
             node: dict,
-            variable: str
+            variable: str,
+            variable_type: str
     ):
         '''
         Start BSC recursion in the tree.
@@ -53,13 +55,15 @@ class JDTEngine():
         elif self.__compute_condition(
                 node,
                 attributes_to_match,
-                variable
+                variable,
+                variable_type
         ):
             for inner_node in node['leafs']:
                 self.__decide_next_node_BSC(
                     attributes_to_match,
                     inner_node,
-                    node.get(VARIABLE, '')
+                    node.get(VARIABLE, ''),
+                    node.get(VARIABLE_TYPE, '')
                 )
         return self.decision
 
@@ -67,7 +71,8 @@ class JDTEngine():
             self,
             node: dict,
             attribute_to_match: dict,
-            variable_name: str
+            variable_name: str,
+            variable_type: str
     ) -> bool:
         '''
         Returns evals of the condition in the three.
@@ -79,6 +84,11 @@ class JDTEngine():
                         condition_result (bool): il condition in node is mached
                         by value in object
         '''
+        variable_type = {
+            'string': 'str',
+            'number': 'float'
+        }.get(variable_type, '')
+
         operator = node[OPERATOR]
         variable_value = node[VALUE]
         target_value = attribute_to_match[variable_name]
@@ -89,6 +99,6 @@ class JDTEngine():
             pass
         try:
             print(f"{target_value} {operator} {variable_value}")
-            return eval(f"{target_value} {operator} {variable_value}")
+            return eval(f"{target_value} {operator} {variable_type}({variable_value})")
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")

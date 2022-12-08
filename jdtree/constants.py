@@ -1,5 +1,6 @@
 OPERATOR = 'operator'
-VARIABLE = 'variable'
+VARIABLE = 'variableName'
+VARIABLE_TYPE = 'variableType'
 VALUE = 'value'
 NODE = 'node'
 CONDITION = 'condition'
