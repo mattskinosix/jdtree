@@ -4,7 +4,14 @@ from numbers import Number
 
 class Operator:
 
-    def beetween(self, x: Number, y: List[Number]):
-        if len(y) != 2:
+    def between(self, x: Number, y: str):
+        list = y.split(',')
+        if len(list) != 2:
             return False
-        return eval(f'{y[0]} <= {x} <= {y[1]}')
+        return eval(f'{list[0]} <= {x} <= {list[1]}')
+
+    def not_between(self, x: Number, y: str):
+        list = y.split(',')
+        if len(list) != 2:
+            return False
+        return not eval(f'{list[0]} <= {x} <= {list[1]}')

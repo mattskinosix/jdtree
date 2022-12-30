@@ -65,6 +65,7 @@ class JDTEngine():
                     node.get(VARIABLE, ''),
                     node.get(VARIABLE_TYPE, '')
                 )
+
         return self.decision
 
     def __compute_condition(
@@ -98,7 +99,9 @@ class JDTEngine():
         except AttributeError:
             pass
         try:
-            print(f"{target_value} {operator} {variable_value}")
-            return eval(f"{target_value} {operator} {variable_type}({variable_value})")
+            result = eval(f"{variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')") 
+            if result:
+                logging.info(f"TRUE {variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')")
+            return result
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
