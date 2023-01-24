@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='jdtree',
     packages=['jdtree'],
-    version='0.0.1',
+    version='0.0.2',
     description='Json Decision Table/Tree',
     author='Matteo Greco',
     license='MIT',
