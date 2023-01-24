@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 from .condition import Operator
-from .constants import OPERATOR, VALUE, VARIABLE, VARIABLE_TYPE
+from .constants import NUMBER_TYPE, OBJECT_TYPE, OPERATOR, STRING_TYPE, VALUE, VARIABLE, VARIABLE_TYPE
 
 
 class JDTEngine():
@@ -85,11 +85,6 @@ class JDTEngine():
                         condition_result (bool): il condition in node is mached
                         by value in object
         '''
-        variable_type = {
-            'string': 'str',
-            'number': 'float'
-        }.get(variable_type, '')
-
         operator = node[OPERATOR]
         variable_value = node[VALUE]
         target_value = attribute_to_match[variable_name]
@@ -99,9 +94,15 @@ class JDTEngine():
         except AttributeError:
             pass
         try:
-            result = eval(f"{variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')") 
+            result = eval(self.get_eval_string(variable_type, target_value, operator, variable_value))
             if result:
                 logging.info(f"TRUE {variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')")
             return result
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
+
+    def get_eval_string(self, variable_type, target_value, operator, variable_value):
+        if variable_type == STRING_TYPE or variable_type == NUMBER_TYPE:
+            return f"{variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')"
+        if variable_type == OBJECT_TYPE:
+            return f"{target_value} {operator} {variable_value}"
