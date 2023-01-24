@@ -15,4 +15,4 @@ STRING_TYPE = 'string'
 
 OBJECT_TYPE = 'object'
 
-NUMBER_TYPE = 'number'
+NUMBER_TYPE = 'float'
