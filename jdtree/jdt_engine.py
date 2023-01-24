@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 from .condition import Operator
-from .constants import NUMBER_TYPE, OBJECT_TYPE, OPERATOR, STRING_TYPE, VALUE, VARIABLE, VARIABLE_TYPE
+from .constants import NUMBER_TYPE, OBJECT_TYPE, OPERATOR, STRING_TYPE, TO_PYTHON_TYPE, VALUE, VARIABLE, VARIABLE_TYPE
 
 
 class JDTEngine():
@@ -94,15 +94,22 @@ class JDTEngine():
         except AttributeError:
             pass
         try:
-            result = eval(self.get_eval_string(variable_type, target_value, operator, variable_value))
+            eval_string = self.get_eval_string(variable_type, target_value, operator, variable_value)
+            print(eval_string)
+            result = eval(eval_string)
             if result:
                 logging.info(f"TRUE {variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')")
             return result
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
 
-    def get_eval_string(self, variable_type, target_value, operator, variable_value):
+    def get_eval_string(self, variable_type, target_value, operator, variable_value) -> str:
+        print(variable_type)
+        variable_type_python = TO_PYTHON_TYPE.get(variable_type)
         if variable_type == STRING_TYPE or variable_type == NUMBER_TYPE:
-            return f"{variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')"
+            return f"{variable_type_python}('{target_value}') {operator} {variable_type_python}('{variable_value}')"
         if variable_type == OBJECT_TYPE:
             return f"{target_value} {operator} {variable_value}"
+
+        raise Exception
+
