@@ -12,3 +12,19 @@ class TestTree():
           })
         assert result == aspected_result
 
+    def test_decision_is_not_null(self):
+        tree = JDTEngine(file_path="assets/test_is_not_null.json")
+        
+        aspected_result = [{'result': True}]
+        result = tree.decide(
+          {
+              'temperatura': '12',
+          })
+        assert result == aspected_result
+
+        aspected_result = []
+        result = tree.decide(
+          {
+              'temperatura': None,
+          })
+        assert result == aspected_result
