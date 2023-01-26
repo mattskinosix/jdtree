@@ -14,7 +14,9 @@ All roots start a new thread
 ## Example
 
 Given this json
+
 if the input is temperatura = 9 then the output was COLD 
+
 if the input is temperatura = 11 then the output was HOT 
 
       {
