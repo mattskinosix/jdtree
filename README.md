@@ -17,41 +17,38 @@ Given this json
 if the input is temperatura = 9 then the output was COLD 
 if the input is temperatura = 11 then the output was HOT 
 
-
-{
-   "root":{
-      "variableType":"number",
-      "variableName":"temperatura",
-      "leafs":[
-         {
-            "id":"f7dff1c4-08ea-424e-90b2-a002053ac651",
-            "value":"10",
-            "operator":">",
+      {
+         "root":{
+            "variableType":"number",
+            "variableName":"temperatura",
             "leafs":[
                {
-                  "result":{
-                     "ciao":"HOT"
-                  }
-               }
-            ]
-         },
-         {
-            "id":"34646224-ba40-40e3-a553-ffaca0e35d16",
-            "value":"10",
-            "operator":"<",
-            "leafs":[
+                  "id":"f7dff1c4-08ea-424e-90b2-a002053ac651",
+                  "value":"10",
+                  "operator":">",
+                  "leafs":[
+                     {
+                        "result":{
+                           "ciao":"HOT"
+                        }
+                     }
+                  ]
+               },
                {
-                  "result":{
-                     "ciao":"COLD"
-                  }
+                  "id":"34646224-ba40-40e3-a553-ffaca0e35d16",
+                  "value":"10",
+                  "operator":"<",
+                  "leafs":[
+                     {
+                        "result":{
+                           "ciao":"COLD"
+                        }
+                     }
+                  ]
                }
             ]
          }
-      ]
-   }
-}
-
-
+      }
 
 
 
