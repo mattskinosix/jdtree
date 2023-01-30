@@ -28,3 +28,10 @@ class TestTree():
               'temperatura': None,
           })
         assert result == aspected_result
+
+        aspected_result = []
+        result = tree.decide(
+          {
+              'temperatura': '',
+          })
+        assert result == aspected_result

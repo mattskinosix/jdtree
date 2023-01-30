@@ -107,8 +107,11 @@ class JDTEngine():
 
         variable_type_python = TO_PYTHON_TYPE.get(variable_type)
 
-        if variable_value == 'None':
+        if variable_value in ['None', '']:
             variable_value = None
+
+        if target_value in ['None', '']:
+            target_value = None
 
         if variable_value:
             variable_value = f"{variable_type_python}('{variable_value}')"
