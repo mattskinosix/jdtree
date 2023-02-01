@@ -18,10 +18,10 @@ class Operator:
 
     def empty(self, x: Any, y: str):
 
-        if x and strtobool(y):
+        if not x and strtobool(y):
             return True
 
-        if not x and not strtobool(y):
+        if x and not strtobool(y):
             return True
 
         return False
