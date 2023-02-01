@@ -94,11 +94,13 @@ class JDTEngine():
         except AttributeError:
             pass
         try:
-            eval_string = self.get_eval_string(variable_type, target_value, operator, variable_value)
+            eval_string = self.get_eval_string(
+                variable_type, target_value, operator, variable_value)
             print(eval_string)
             result = eval(eval_string)
             if result:
-                logging.info(f"TRUE {variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')")
+                logging.info(
+                    f"TRUE {variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')")
             return result
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
@@ -106,14 +108,9 @@ class JDTEngine():
     def get_eval_string(self, variable_type, target_value, operator, variable_value) -> str:
 
         variable_type_python = TO_PYTHON_TYPE.get(variable_type)
+        if variable_type == STRING_TYPE or variable_type == NUMBER_TYPE:
+            return f"{variable_type_python}('{target_value}') {operator} {variable_type_python}('{variable_value}')"
+        if variable_type == OBJECT_TYPE:
+            return f"{target_value} {operator} {variable_value}"
 
-        if variable_value == 'None':
-            variable_value = None
-
-        if variable_value:
-            variable_value = f"{variable_type_python}('{variable_value}')"
-
-        if target_value:
-            target_value = f"{variable_type_python}('{target_value}')"
-
-        return f"{target_value} {operator} {variable_value}"
+        raise Exception

@@ -12,8 +12,8 @@ class TestTree():
           })
         assert result == aspected_result
 
-    def test_decision_is_not_null(self):
-        tree = JDTEngine(file_path="assets/test_is_not_null.json")
+    def test_condition_empty(self):
+        tree = JDTEngine(file_path="assets/test_condition_empty.json")
         
         aspected_result = [{'result': True}]
         result = tree.decide(
