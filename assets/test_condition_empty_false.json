@@ -1,0 +1,14 @@
+{
+  "root": {
+    "variableType": "string",
+    "variableName": "temperatura",
+    "leafs": [
+      {
+        "id": "9c784070-9c7c-4c58-a35f-c5c73bdb66e8",
+        "value": "false",
+        "operator": "empty",
+        "leafs": [{ "result": true }]
+      }
+    ]
+  }
+}
