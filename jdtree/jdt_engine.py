@@ -95,7 +95,6 @@ class JDTEngine():
             raise UnsupportedOperation(f"{operator} not supported")
 
     def get_eval_string(self, variable_type, target_value, operator, variable_value) -> str:
-
         variable_type_python = TO_PYTHON_TYPE.get(variable_type)
         if variable_type == STRING_TYPE or variable_type == NUMBER_TYPE:
             return f"{variable_type_python}('{target_value}') {operator} {variable_type_python}('{variable_value}')"
