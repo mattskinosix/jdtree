@@ -25,3 +25,9 @@ class Operator:
             return True
 
         return False
+    
+    def greater(self, x: Any, y: str):
+        return x > y
+    
+    def less(self, x: Any, y: str):
+        return x < y

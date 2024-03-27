@@ -89,11 +89,6 @@ class JDTEngine():
         variable_value = node[VALUE]
         target_value = attribute_to_match[variable_name]
         try:
-            operation = getattr(self.operation, operator)
-            return operation(target_value, variable_value)
-        except AttributeError:
-            pass
-        try:
             eval_string = self.get_eval_string(
                 variable_type, target_value, operator, variable_value)
             print(eval_string)
@@ -102,8 +97,11 @@ class JDTEngine():
                 logging.info(
                     f"TRUE {variable_type}('{target_value}') {operator} {variable_type}('{variable_value}')")
             return result
+        except AttributeError:
+            raise UnsupportedOperation(f"{operator} not supported")
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
+        
 
     def get_eval_string(self, variable_type, target_value, operator, variable_value) -> str:
 
