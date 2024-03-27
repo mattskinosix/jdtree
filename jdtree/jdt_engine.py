@@ -89,8 +89,10 @@ class JDTEngine():
         variable_value = node[VALUE]
         target_value = attribute_to_match[variable_name]
         try:
+            operation = getattr(self.operation, operator)
+            operation(target_value, variable_value)
             eval_string = self.get_eval_string(
-                variable_type, target_value, operator, variable_value)
+            variable_type, target_value, operator, variable_value)
             print(eval_string)
             result = eval(eval_string)
             if result:
@@ -101,7 +103,6 @@ class JDTEngine():
             raise UnsupportedOperation(f"{operator} not supported")
         except SyntaxError:
             raise UnsupportedOperation(f"{operator} not supported")
-        
 
     def get_eval_string(self, variable_type, target_value, operator, variable_value) -> str:
 
