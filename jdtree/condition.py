@@ -27,7 +27,7 @@ class Operator:
         return False
     
     def greater(self, x: Any, y: str):
-        return x > y
+        return eval(f'{x} > {y}')
     
     def less(self, x: Any, y: str):
-        return x < y
+        return eval(f'{x} < {y} ')
