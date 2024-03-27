@@ -27,7 +27,7 @@ if the input is temperatura = 11 then the output was HOT
                {
                   "id":"f7dff1c4-08ea-424e-90b2-a002053ac651",
                   "value":"10",
-                  "operator":">",
+                  "operator":"greater",
                   "leafs":[
                      {
                         "result":{
@@ -39,7 +39,7 @@ if the input is temperatura = 11 then the output was HOT
                {
                   "id":"34646224-ba40-40e3-a553-ffaca0e35d16",
                   "value":"10",
-                  "operator":"<",
+                  "operator":"less",
                   "leafs":[
                      {
                         "result":{
