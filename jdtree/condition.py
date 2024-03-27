@@ -8,13 +8,13 @@ class Operator:
         list = y.split(',')
         if len(list) != 2:
             return False
-        return eval(f'{list[0]} <= {x} <= {list[1]}')
+        return list[0] <= x <= list[1]
 
     def not_between(self, x: Number, y: str):
         list = y.split(',')
         if len(list) != 2:
             return False
-        return not eval(f'{list[0]} <= {x} <= {list[1]}')
+        return not list[0] <= {x} <= list[1]
 
     def empty(self, x: Any, y: str):
 
@@ -27,7 +27,7 @@ class Operator:
         return False
     
     def greater(self, x: Any, y: str):
-        return eval(f'{x} > {y}')
+        return x > y
     
     def less(self, x: Any, y: str):
-        return eval(f'{x} < {y} ')
+        return x < y
