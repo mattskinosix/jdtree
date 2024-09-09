@@ -1,0 +1,1 @@
+{"root":{"variableType":"object","variableName":"test","leafs":[{"id":"2faf5a63-74d1-45a1-8103-24c95e3ecc46","value":"None","operator":"==","leafs":[{"result":{"test":1}}]},{"id":"b5a58fa8-6a1a-4d41-ad42-177debb3bde2","value":"None","operator":"!= ","leafs":[{"result":{"test":2}}]}]}}
